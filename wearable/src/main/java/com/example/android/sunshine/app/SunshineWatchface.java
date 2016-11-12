@@ -163,12 +163,10 @@ public class SunshineWatchface extends CanvasWatchFaceService {
         DataApi.DataListener  dataListener = new DataApi.DataListener() {
             @Override
             public void onDataChanged(DataEventBuffer dataEventBuffer) {
-                Log.d(TAG, "onDataChanged: " + dataEventBuffer);
                 for (DataEvent event : dataEventBuffer) {
                     if (event.getType() == DataEvent.TYPE_CHANGED) {
                         String path = event.getDataItem().getUri().getPath();
                         if (WEATHER_PATH.equals(path)) {
-                            Log.d(TAG, "onDataChanged: weather data changed ");
                             try {
                                 DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
                                 weatherTempHigh = dataMapItem.getDataMap().getString(WEATHER_TEMP_HIGH_KEY);
@@ -237,7 +235,6 @@ public class SunshineWatchface extends CanvasWatchFaceService {
                     .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                         @Override
                         public void onConnected(@Nullable Bundle bundle) {
-                            Log.d(TAG, "onConnected: Gooogle API client");
                             Wearable.DataApi.addListener(googleApiClient, dataListener);
                         }
 

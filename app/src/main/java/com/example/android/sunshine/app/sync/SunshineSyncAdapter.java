@@ -485,7 +485,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                     // WEATHER_NOTIFICATION_ID allows you to update the notification later on.
                     mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
 
-                    sendWeatherToWear(largeIcon, high, low, weatherId);
+                    sendWeatherToWear(high, low, weatherId);
                     //refreshing last sync
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putLong(lastNotificationKey, System.currentTimeMillis());
@@ -496,7 +496,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    private void sendWeatherToWear(Bitmap icon, double high, double low, int weatherId) {
+    private void sendWeatherToWear(double high, double low, int weatherId) {
         Context context = getContext();
         final GoogleApiClient mGoogleApiClient;
         boolean mResolvingError = false;
@@ -512,12 +512,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(Bundle bundle) {
-                        Log.d("onConnected(): ", "Google API Client was connected");
+
                     }
 
                     @Override
                     public void onConnectionSuspended(int i) {
-                        Log.d("onConnSuspended(): ", "Connection to Google API client was suspended");
+
                     }
                 })
                 .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
@@ -542,7 +542,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             @Override
             public void onResult(DataApi.DataItemResult dataItemResult) {
                 if (dataItemResult.getStatus().isSuccess()) {
-                    Log.d(TAG, "Successfully send weather info");
+
                 } else {
                     Log.e(TAG, "Failed to send weather info ");
                 }
